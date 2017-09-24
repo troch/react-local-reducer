@@ -2,3 +2,4 @@
 *.md
 yarn.lock
 src
+test

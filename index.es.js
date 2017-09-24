@@ -1,14 +1,5 @@
-'use strict'
-
-Object.defineProperty(exports, '__esModule', { value: true })
-
-function _interopDefault(ex) {
-  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex
-}
-
-var React = require('react')
-var React__default = _interopDefault(React)
-var PropTypes = _interopDefault(require('prop-types'))
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
 function onDispatchStoreEnhancer() {
   return function(createStore) {
@@ -199,7 +190,7 @@ var withReducer = function withReducer(
         {
           key: 'render',
           value: function render() {
-            return React__default.createElement(
+            return React.createElement(
               WrappedComponent,
               Object.assign({}, this.props, this.state, this.actionCreators)
             )
@@ -207,7 +198,7 @@ var withReducer = function withReducer(
         }
       ])
       return WithReducer
-    })(React.PureComponent)
+    })(PureComponent)
 
     WithReducer.contextTypes = Object.assign(
       {
@@ -220,6 +211,8 @@ var withReducer = function withReducer(
   }
 }
 
-exports.withReducer = withReducer
-exports.onDispatchEnhancer = onDispatchStoreEnhancer
-exports.setContextTypes = setContextTypes
+export {
+  withReducer,
+  onDispatchStoreEnhancer as onDispatchEnhancer,
+  setContextTypes
+}
