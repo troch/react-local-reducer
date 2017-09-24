@@ -223,5 +223,5 @@ var withReducer = function withReducer(
 }
 
 exports.withReducer = withReducer
-exports.onDispatchEnhancer = onDispatchStoreEnhancer
+exports.onDispatchStoreEnhancer = onDispatchStoreEnhancer
 exports.setContextTypes = setContextTypes

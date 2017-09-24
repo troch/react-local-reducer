@@ -213,8 +213,4 @@ var withReducer = function withReducer(
   }
 }
 
-export {
-  withReducer,
-  onDispatchStoreEnhancer as onDispatchEnhancer,
-  setContextTypes
-}
+export { withReducer, onDispatchStoreEnhancer, setContextTypes }

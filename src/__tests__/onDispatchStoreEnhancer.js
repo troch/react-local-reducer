@@ -1,17 +1,17 @@
-import onDispatchEnhancer from '../onDispatchEnhancer'
+import onDispatchStoreEnhancer from '../onDispatchStoreEnhancer'
 import { createStore, applyMiddleware, compose } from 'redux'
 
-describe('onDispatchEnhancer', () => {
+describe('onDispatchStoreEnhancer', () => {
   const reducer = () => ({ a: 1 })
 
   it('should add a onDispatch method to stores', () => {
-    const store = createStore(reducer, {}, onDispatchEnhancer)
+    const store = createStore(reducer, {}, onDispatchStoreEnhancer)
 
     expect(store.onDispatch).toBeDefined()
   })
 
   it('should add and remove dispatch callbacks', () => {
-    const store = createStore(reducer, {}, onDispatchEnhancer)
+    const store = createStore(reducer, {}, onDispatchStoreEnhancer)
     const callback = jest.fn()
     const action = {
       type: 'ACTION'

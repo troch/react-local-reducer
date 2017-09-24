@@ -1,5 +1,5 @@
-import onDispatchEnhancer from './onDispatchEnhancer'
+import onDispatchStoreEnhancer from './onDispatchStoreEnhancer'
 import withReducer from './withReducer'
 import { setContextTypes } from './contextTypes'
 
-export { withReducer, onDispatchEnhancer, setContextTypes }
+export { withReducer, onDispatchStoreEnhancer, setContextTypes }
