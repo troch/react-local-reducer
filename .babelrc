@@ -1,11 +1,27 @@
 {
-	"presets": [
-		[ "env", { "modules":false }],
-		"react"
-	],
-	"plugins": [
-		["transform-object-rest-spread", { "useBuiltIns": true }],
-		"transform-class-properties",
-		"external-helpers"
-	]
+    "presets": [
+        [ "env", { "modules":false }],
+        "react"
+    ],
+    "plugins": [
+        ["transform-object-rest-spread", { "useBuiltIns": true }],
+        "transform-class-properties"
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                "env",
+                "react"
+            ],
+            "plugins": [
+                "transform-object-rest-spread",
+                "transform-class-properties"
+            ]
+        },
+        "production": {
+            "plugins": [
+                "external-helpers"
+            ]
+        }
+    }
 }

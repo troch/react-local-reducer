@@ -10,35 +10,34 @@ var React = require('react')
 var React__default = _interopDefault(React)
 var PropTypes = _interopDefault(require('prop-types'))
 
-function onDispatchStoreEnhancer() {
-  return function(createStore) {
-    return function(reducer, initialState, enhancer) {
-      var store = createStore(reducer, initialState, enhancer)
-      var dispatch = store.dispatch
-      var onDispatchHandlers = []
+function onDispatchStoreEnhancer(createStore) {
+  return function(reducer, initialState, enhancer) {
+    var store = createStore(reducer, initialState, enhancer)
 
-      store.onDispatch = function(callback) {
-        onDispatchHandlers.push(callback)
+    var dispatch = store.dispatch
+    var onDispatchHandlers = []
 
-        return function() {
-          onDispatchHandlers = onDispatchHandlers.filter(function(cb) {
-            return cb !== callback
-          })
-        }
-      }
+    store.onDispatch = function(callback) {
+      onDispatchHandlers.push(callback)
 
-      store.dispatch = function(action) {
-        var result = dispatch(action)
-
-        onDispatchHandlers.forEach(function(handler) {
-          return handler(action)
+      return function() {
+        onDispatchHandlers = onDispatchHandlers.filter(function(cb) {
+          return cb !== callback
         })
-
-        return result
       }
-
-      return store
     }
+
+    store.dispatch = function(action) {
+      var result = dispatch(action)
+
+      onDispatchHandlers.forEach(function(handler) {
+        return handler(action)
+      })
+
+      return result
+    }
+
+    return store
   }
 }
 
@@ -51,9 +50,9 @@ var keysAreEqual = function keysAreEqual(left, right) {
   )
 }
 
-var shallowEquals$1 = (shallowEquals = function shallowEquals(left, right) {
+var shallowEquals = function shallowEquals(left, right) {
   return left === right || keysAreEqual(left, right)
-})
+}
 
 var isObject = function isObject(value) {
   return (
@@ -64,30 +63,33 @@ var isObject = function isObject(value) {
 }
 
 var bindActionCreatorsObject = function bindActionCreatorsObject(
-  actionCreators
+  mapDispatchToProps,
+  dispatchAction
 ) {
   return Object.keys(mapDispatchToProps).reduce(function(
     actionCreators,
-    actionKey
+    actionName
   ) {
     return Object.assign(
       {},
       actionCreators,
-      babelHelpers.defineProperty({}, actionKey, function() {
-        var actionCreator = mapDispatchToProps[actionKey]
+      babelHelpers.defineProperty({}, actionName, function() {
+        var actionCreator = mapDispatchToProps[actionName]
         var action = actionCreator.apply(undefined, arguments)
 
         dispatchAction(action)
       })
     )
-  })
+  }, {})
 }
 
 var bindActionCreators = function bindActionCreators(
   mapDispatchToProps,
-  dispatchAction,
-  props
+  dispatchAction
 ) {
+  var props =
+    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+
   if (typeof mapDispatchToProps === 'function') {
     return mapDispatchToProps(dispatchAction, props)
   } else if (
@@ -95,7 +97,7 @@ var bindActionCreators = function bindActionCreators(
       ? 'undefined'
       : babelHelpers.typeof(mapDispatchToProps)) === 'object'
   ) {
-    return bindActionCreatorsObject(mapDispatchToProps)
+    return bindActionCreatorsObject(mapDispatchToProps, dispatchAction)
   }
 
   return {}
@@ -162,13 +164,13 @@ var withReducer = function withReducer(
             )
           }
 
-          if (!shallowEquals$1(_this.state, newState)) {
+          if (!shallowEquals(_this.state, newState)) {
             _this.replaceState(newState)
           }
         }
 
         _this.reducer = createReducer(props, context)
-        _this.state = _this.reducer(initAction, {})
+        _this.state = _this.reducer(undefined, initAction)
         _this.actionCreators = bindActionCreators(
           mapDispatchToProps,
           _this.dispatchAction,
@@ -181,7 +183,7 @@ var withReducer = function withReducer(
 
         if (store && store.onDispatch) {
           if (options.listenToStoreActions) {
-            _this.unsubscibe = store.onDispatch(_this.dispatchAction)
+            _this.unsubscribe = store.onDispatch(_this.dispatchAction)
           }
         }
         return _this
@@ -191,8 +193,8 @@ var withReducer = function withReducer(
         {
           key: 'componentWillUnmount',
           value: function componentWillUnmount() {
-            if (this.unsubscibe) {
-              this.unsubscibe()
+            if (this.unsubscribe) {
+              this.unsubscribe()
             }
           }
         },

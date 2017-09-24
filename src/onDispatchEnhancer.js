@@ -1,6 +1,7 @@
-export default function onDispatchStoreEnhancer() {
-  return createStore => (reducer, initialState, enhancer) => {
+export default function onDispatchStoreEnhancer(createStore) {
+  return (reducer, initialState, enhancer) => {
     const store = createStore(reducer, initialState, enhancer)
+
     const dispatch = store.dispatch
     let onDispatchHandlers = []
 

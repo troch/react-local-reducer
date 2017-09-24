@@ -24,7 +24,7 @@ const withReducer = (
       super(props, context)
 
       this.reducer = createReducer(props, context)
-      this.state = this.reducer(initAction, {})
+      this.state = this.reducer(undefined, initAction)
       this.actionCreators = bindActionCreators(
         mapDispatchToProps,
         this.dispatchAction,
@@ -36,7 +36,7 @@ const withReducer = (
 
       if (store && store.onDispatch) {
         if (options.listenToStoreActions) {
-          this.unsubscibe = store.onDispatch(this.dispatchAction)
+          this.unsubscribe = store.onDispatch(this.dispatchAction)
         }
       }
     }
@@ -65,8 +65,8 @@ const withReducer = (
     }
 
     componentWillUnmount() {
-      if (this.unsubscibe) {
-        this.unsubscibe()
+      if (this.unsubscribe) {
+        this.unsubscribe()
       }
     }
 
