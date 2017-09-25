@@ -37,7 +37,7 @@ import React from 'react'
 import { withReducer } from 'react-local-reducer'
 
 // Reducer
-const reducer = ({ initialCount }) =>
+const reducerFactory = ({ initialCount }) =>
   (state = { count: initialCount }, action) => {
     if (!action) return state
 
@@ -64,13 +64,13 @@ const remove = () => ({ type: 'REMOVE' })
 const Counter = ({ count, add, remove }) => (
   <div>
     Count: { count }
-    <button onClick={ () => add() }>Plus</button>
-    <button onClick={ () => remove() }>Remove</button>
+    <button onClick={ add }>Plus</button>
+    <button onClick={ remove }>Remove</button>
   </div>
 )
 
 export default withReducer(
-  () => reducer,
+  reducerFactory,
   { add, remove }
 )(Counter)
 ```
