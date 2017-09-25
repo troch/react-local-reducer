@@ -1,5 +1,9 @@
 # react-local-reducer
 
+[![Build Status](https://travis-ci.org/troch/react-local-reducer.svg?branch=master)](https://travis-ci.org/troch/react-local-reducer)
+[![npm version](https://badge.fury.io/js/react-local-reducer.svg)](https://badge.fury.io/js/react-local-reducer)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 A tiny library (~1k gzipped) to use redux-style reducers locally in your React components. No external dependency, it can be used without a redux store.
 
 ```sh
