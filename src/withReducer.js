@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import shallowEquals from './utils/shallowEquals'
-import isObject from './utils/isObject'
+import { shallowEquals, isObject } from './utils/helpers'
 import bindActionCreators from './utils/bindActionCreators'
 import { getContextTypes } from './contextTypes'
 

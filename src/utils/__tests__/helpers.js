@@ -1,4 +1,12 @@
-import shallowEquals from '../shallowEquals'
+import { isObject, shallowEquals } from '../helpers'
+
+describe('isObject', () => {
+  it('should correctly identify objects', () => {
+    expect(isObject({})).toBe(true)
+    expect(isObject([])).toBe(false)
+    expect(isObject({ valid: true })).toBe(true)
+  })
+})
 
 describe('shallowEquals', () => {
   it('should correctly shallow compare objects', () => {

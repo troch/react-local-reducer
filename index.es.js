@@ -1,216 +1,167 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import _Object$assign from 'babel-runtime/core-js/object/assign';
+import _Object$getPrototypeOf from 'babel-runtime/core-js/object/get-prototype-of';
+import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
+import _createClass from 'babel-runtime/helpers/createClass';
+import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
+import _inherits from 'babel-runtime/helpers/inherits';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import _Object$keys from 'babel-runtime/core-js/object/keys';
+import _typeof from 'babel-runtime/helpers/typeof';
+import _defineProperty from 'babel-runtime/helpers/defineProperty';
 
 function onDispatchStoreEnhancer(createStore) {
-  return function(reducer, initialState, enhancer) {
-    var store = createStore(reducer, initialState, enhancer)
+  return function (reducer, initialState, enhancer) {
+    var store = createStore(reducer, initialState, enhancer);
 
-    var dispatch = store.dispatch
-    var onDispatchHandlers = []
+    var dispatch = store.dispatch;
+    var onDispatchHandlers = [];
 
-    store.onDispatch = function(callback) {
-      onDispatchHandlers.push(callback)
+    store.onDispatch = function (callback) {
+      onDispatchHandlers.push(callback);
 
-      return function() {
-        onDispatchHandlers = onDispatchHandlers.filter(function(cb) {
-          return cb !== callback
-        })
-      }
-    }
+      return function () {
+        onDispatchHandlers = onDispatchHandlers.filter(function (cb) {
+          return cb !== callback;
+        });
+      };
+    };
 
-    store.dispatch = function(action) {
-      var result = dispatch(action)
+    store.dispatch = function (action) {
+      var result = dispatch(action);
 
-      onDispatchHandlers.forEach(function(handler) {
-        return handler(action)
-      })
+      onDispatchHandlers.forEach(function (handler) {
+        return handler(action);
+      });
 
-      return result
-    }
+      return result;
+    };
 
-    return store
-  }
-}
-
-var keysAreEqual = function keysAreEqual(left, right) {
-  return (
-    Object.keys(left).length === Object.keys(right).length &&
-    Object.keys(left).every(function(leftKey) {
-      return left[leftKey] === right[leftKey]
-    })
-  )
-}
-
-var shallowEquals = function shallowEquals(left, right) {
-  return left === right || keysAreEqual(left, right)
+    return store;
+  };
 }
 
 var isObject = function isObject(value) {
-  return (
-    (typeof value === 'undefined'
-      ? 'undefined'
-      : babelHelpers.typeof(value)) === 'object' && !Array.isArray(value)
-  )
-}
+  return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && !Array.isArray(value);
+};
 
-var bindActionCreatorsObject = function bindActionCreatorsObject(
-  mapDispatchToProps,
-  dispatchAction
-) {
-  return Object.keys(mapDispatchToProps).reduce(function(
-    actionCreators,
-    actionName
-  ) {
-    return Object.assign(
-      {},
-      actionCreators,
-      babelHelpers.defineProperty({}, actionName, function() {
-        var actionCreator = mapDispatchToProps[actionName]
-        var action = actionCreator.apply(undefined, arguments)
+var keysAreEqual = function keysAreEqual(left, right) {
+  return _Object$keys(left).length === _Object$keys(right).length && _Object$keys(left).every(function (leftKey) {
+    return left[leftKey] === right[leftKey];
+  });
+};
 
-        dispatchAction(action)
-      })
-    )
-  }, {})
-}
+var shallowEquals = function shallowEquals(left, right) {
+  return left === right || keysAreEqual(left, right);
+};
 
-var bindActionCreators = function bindActionCreators(
-  mapDispatchToProps,
-  dispatchAction
-) {
-  var props =
-    arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+var bindActionCreatorsObject = function bindActionCreatorsObject(mapDispatchToProps, dispatchAction) {
+  return _Object$keys(mapDispatchToProps).reduce(function (actionCreators, actionName) {
+    return _Object$assign({}, actionCreators, _defineProperty({}, actionName, function () {
+      var actionCreator = mapDispatchToProps[actionName];
+      var action = actionCreator.apply(undefined, arguments);
+
+      dispatchAction(action);
+    }));
+  }, {});
+};
+
+var bindActionCreators = function bindActionCreators(mapDispatchToProps, dispatchAction) {
+  var props = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
   if (typeof mapDispatchToProps === 'function') {
-    return mapDispatchToProps(dispatchAction, props)
-  } else if (
-    (typeof mapDispatchToProps === 'undefined'
-      ? 'undefined'
-      : babelHelpers.typeof(mapDispatchToProps)) === 'object'
-  ) {
-    return bindActionCreatorsObject(mapDispatchToProps, dispatchAction)
+    return mapDispatchToProps(dispatchAction, props);
+  } else if ((typeof mapDispatchToProps === 'undefined' ? 'undefined' : _typeof(mapDispatchToProps)) === 'object') {
+    return bindActionCreatorsObject(mapDispatchToProps, dispatchAction);
   }
 
-  return {}
-}
+  return {};
+};
 
-var contextTypes = {}
+var contextTypes = {};
 
 var getContextTypes = function getContextTypes() {
-  return contextTypes
-}
+  return contextTypes;
+};
 
 var setContextTypes = function setContextTypes(types) {
-  return (contextTypes = types)
-}
+  return contextTypes = types;
+};
 
 var initAction = {
   type: '@@localReducer/INIT'
-}
+};
 
 var defaultOptions = {
   listenToStoreActions: true
-}
+};
 
-var withReducer = function withReducer(
-  createReducer,
-  mapDispatchToProps,
-  options
-) {
-  return function(WrappedComponent) {
-    var WithReducer = (function(_PureComponent) {
-      babelHelpers.inherits(WithReducer, _PureComponent)
+var withReducer = function withReducer(createReducer, mapDispatchToProps, options) {
+  return function (WrappedComponent) {
+    var WithReducer = function (_PureComponent) {
+      _inherits(WithReducer, _PureComponent);
 
       function WithReducer(props, context) {
-        babelHelpers.classCallCheck(this, WithReducer)
+        _classCallCheck(this, WithReducer);
 
-        var _this = babelHelpers.possibleConstructorReturn(
-          this,
-          (WithReducer.__proto__ || Object.getPrototypeOf(WithReducer)).call(
-            this,
-            props,
-            context
-          )
-        )
+        var _this = _possibleConstructorReturn(this, (WithReducer.__proto__ || _Object$getPrototypeOf(WithReducer)).call(this, props, context));
 
-        _this.dispatchAction = function(action) {
+        _this.dispatchAction = function (action) {
           if (!isObject(action) || !action.type) {
-            console.error(
-              '[' +
-                componentName +
-                '][dispatch] Expected an action object with type, got:',
-              action
-            )
-            return
+            console.error('[' + componentName + '][dispatch] Expected an action object with type, got:', action);
+            return;
           }
 
-          var newState = _this.reducer(action, _this.state)
+          var newState = _this.reducer(action, _this.state);
 
           if (!isObject(newState)) {
-            console.error(
-              '[' +
-                componentName +
-                '][reducer] Expected an object to be returned, got:',
-              newState
-            )
+            console.error('[' + componentName + '][reducer] Expected an object to be returned, got:', newState);
           }
 
           if (!shallowEquals(_this.state, newState)) {
-            _this.replaceState(newState)
+            _this.replaceState(newState);
           }
-        }
+        };
 
-        _this.reducer = createReducer(props, context)
-        _this.state = _this.reducer(undefined, initAction)
-        _this.actionCreators = bindActionCreators(
-          mapDispatchToProps,
-          _this.dispatchAction,
-          _this.props
-        )
+        _this.reducer = createReducer(props, context);
+        _this.state = _this.reducer(undefined, initAction);
+        _this.actionCreators = bindActionCreators(mapDispatchToProps, _this.dispatchAction, _this.props);
 
-        var store = context.store
+        var store = context.store;
 
-        var finalOptions = Object.assign({}, defaultOptions, options)
+        var finalOptions = _Object$assign({}, defaultOptions, options);
 
         if (store && store.onDispatch) {
           if (options.listenToStoreActions) {
-            _this.unsubscribe = store.onDispatch(_this.dispatchAction)
+            _this.unsubscribe = store.onDispatch(_this.dispatchAction);
           }
         }
-        return _this
+        return _this;
       }
 
-      babelHelpers.createClass(WithReducer, [
-        {
-          key: 'componentWillUnmount',
-          value: function componentWillUnmount() {
-            if (this.unsubscribe) {
-              this.unsubscribe()
-            }
-          }
-        },
-        {
-          key: 'render',
-          value: function render() {
-            return React.createElement(
-              WrappedComponent,
-              Object.assign({}, this.props, this.state, this.actionCreators)
-            )
+      _createClass(WithReducer, [{
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+          if (this.unsubscribe) {
+            this.unsubscribe();
           }
         }
-      ])
-      return WithReducer
-    })(PureComponent)
+      }, {
+        key: 'render',
+        value: function render() {
+          return React.createElement(WrappedComponent, _Object$assign({}, this.props, this.state, this.actionCreators));
+        }
+      }]);
 
-    WithReducer.contextTypes = Object.assign(
-      {
-        store: PropTypes.object
-      },
-      getContextTypes()
-    )
+      return WithReducer;
+    }(PureComponent);
 
-    return WithReducer
-  }
-}
+    WithReducer.contextTypes = _Object$assign({
+      store: PropTypes.object
+    }, getContextTypes());
 
-export { withReducer, onDispatchStoreEnhancer, setContextTypes }
+    return WithReducer;
+  };
+};
+
+export { withReducer, onDispatchStoreEnhancer, setContextTypes };
