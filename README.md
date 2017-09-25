@@ -25,7 +25,7 @@ Not everything needs to be in a global store, especially state which is not shar
 - Reducers are created using `props` and `context` so they can be initialised, and they must return an object
 - Reducers can receive actions from your main store, thanks to a store enhancer provided by this package
 
-#### __withReducer(reducerCreator, mapDispatchToProps)__
+#### __withReducer(reducerCreator, mapDispatchToProps)(BaseComponent)__
 
 `withReducer` is a higher-order component adding a reducer to a component. Its API is similar to `connect`, with `mapStateToProps` being replaced by a reducer. It will spread the output of its reducer to props, alongside binded action creators. The need for selectors is removed.
 
