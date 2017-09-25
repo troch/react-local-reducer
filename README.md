@@ -4,7 +4,7 @@
 [![npm version](https://badge.fury.io/js/react-local-reducer.svg)](https://badge.fury.io/js/react-local-reducer)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-A tiny library (~1k gzipped) to use redux-style reducers locally in your React components. No external dependency, it can be used without a redux store.
+> A tiny library (~1k gzipped) to use redux-style reducers locally in your React components. No external dependency, it can be used with or without a redux store.
 
 ```sh
 npm install --save react-local-reducer
@@ -14,9 +14,9 @@ yarn add react-local-reducer
 
 ### Why?
 
-Scaling an application with redux means adding more and more reducers to your global store, most of which will end up not being concerned by what components are mounted. It has an impact on performance and on bundle size: reducers cannot be code split as they need to be imported at store creation.
+__Scaling a redux application__ means adding more and more reducers to your global store, most of which will end up not being concerned by what components are mounted. It has an impact on __performance__ and __bundle size__: reducers cannot be code split as they need to be imported at store creation.
 
-Not everything needs to be in a global store, especially if it is not shared across your application. For example, it is possible to have a redux store to cache network data (like Apollo) and manage the rest of your application state with local state.
+Not everything needs to be in a global store, especially state which is not shared across your application. For example, it is possible to have a redux store to cache network data (like Apollo) and manage the rest of your application state with local state.
 
 
 ### React local reducers
@@ -70,6 +70,12 @@ export default withReducer(
   () => reducer,
   { add, remove }
 )(Counter)
+```
+
+The above created component would be used as follow:
+
+```js
+<Counter initialCount={ 10 } />
 ```
 
 #### __setContextTypes__
