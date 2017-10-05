@@ -25,8 +25,8 @@ Not everything needs to be in a global store, especially state which is __not sh
 ### React local reducers
 
 - This solution is a local state solution, and __colocates reducers with their components__
-- Reducers are created using `props` and `context` so they can be initialised, and they must return an object
-- Reducers can receive actions from your main store, thanks to a store enhancer provided by this package
+- Reducers are created using `props` and `context` so they can be initialised, and they __must return an object__
+- Reducers __can receive actions from your main store__, with the help of a store enhancer provided with this package
 
 #### __withReducer(reducerCreator, mapDispatchToProps)(BaseComponent)__
 
