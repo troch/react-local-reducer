@@ -16,11 +16,11 @@ yarn add react-local-reducer
 
 __Scaling a redux application__ means adding more and more reducers to your global store, most of which will end up not being concerned by what components are mounted. It has an impact on __performance__ and __bundle size__: reducers cannot be code split as they need to be imported at store creation.
 
-Reducers are a bit like __singletons__, and complexity is added when they relate to a specific component (which isn't a singleton):
+There are existing solutions to add and remove reducers dynamically, but they still have trade-offs. Particularly, reducers are a bit like __singletons__, and complexity is added when they relate to a specific component (which isn't a singleton):
 - You end up having to manage __initialisation or reset actions__
 - Having multiple instances of a same component adds the overhead __add and remove actions__, forces you to __identify the origin of an action__ and to add more logic in your reducer.
 
-Not everything needs to be in a global store, especially state which is __not shared across your application and strongly relates to a component__. It is possible to have a redux store to cache network data (ala Apollo) and manage the rest of your application state with local state.
+Not everything needs to be in a global store, especially state which is __not shared across your application and strongly relates to a component__. When a reducer is coupled to a component, it often consume global state and global actions, but its state and actions are not shared. Emerging architectures like Apollo Client consist of a redux store to cache network data (entities), with the rest of your state managed locally.
 
 ### React local reducers
 
