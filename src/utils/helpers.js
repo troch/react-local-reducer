@@ -7,3 +7,14 @@ const keysAreEqual = (left, right) =>
 
 export const shallowEquals = (left, right) =>
   left === right || keysAreEqual(left, right)
+
+export const omit = keyToOmit => object =>
+  Object.keys(object)
+    .filter(key => key !== keyToOmit)
+    .reduce(
+      (obj, key) =>
+        Object.assign({
+          [key]: object[key]
+        }),
+      {}
+    )
