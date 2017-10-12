@@ -112,7 +112,7 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, option
             return;
           }
 
-          var newState = _this.reducer(action, _this.state);
+          var newState = _this.reducer(_this.state, action);
 
           if (!isObject(newState)) {
             console.error('[' + componentName + '][reducer] Expected an object to be returned, got:', newState);
