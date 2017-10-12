@@ -59,7 +59,7 @@ const withReducer = (
       }
 
       if (!shallowEquals(this.state, newState)) {
-        this.replaceState(newState)
+        this.setState(newState)
       }
     }
 
