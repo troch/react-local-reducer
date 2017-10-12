@@ -49,7 +49,7 @@ const withReducer = (
         return
       }
 
-      const newState = this.reducer(action, this.state)
+      const newState = this.reducer(this.state, action)
 
       if (!isObject(newState)) {
         console.error(
