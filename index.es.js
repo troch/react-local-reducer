@@ -132,7 +132,7 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, option
         var finalOptions = _Object$assign({}, defaultOptions, options);
 
         if (store && store.onDispatch) {
-          if (options.listenToStoreActions) {
+          if (finalOptions.listenToStoreActions) {
             _this.unsubscribe = store.onDispatch(_this.dispatchAction);
           }
         }
