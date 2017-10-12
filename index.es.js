@@ -119,7 +119,7 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, option
           }
 
           if (!shallowEquals(_this.state, newState)) {
-            _this.replaceState(newState);
+            _this.setState(newState);
           }
         };
 
