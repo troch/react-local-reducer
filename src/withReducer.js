@@ -34,7 +34,7 @@ const withReducer = (
       const finalOptions = { ...defaultOptions, ...options }
 
       if (store && store.onDispatch) {
-        if (options.listenToStoreActions) {
+        if (finalOptions.listenToStoreActions) {
           this.unsubscribe = store.onDispatch(this.dispatchAction)
         }
       }
