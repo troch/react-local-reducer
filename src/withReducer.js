@@ -18,7 +18,7 @@ const merge = (...args) => Object.assign({}, ...args)
 const withReducer = (
   createReducer,
   mapDispatchToProps,
-  options
+  options = {}
 ) => WrappedComponent => {
   class WithReducer extends PureComponent {
     constructor(props, context) {
