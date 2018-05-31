@@ -13,7 +13,7 @@ const defaultOptions = {
   listenToStoreActions: true
 }
 
-const identity = args => args
+const merge = (...args) => Object.assign({}, ...args)
 
 const withReducer = (
   createReducer,
@@ -24,7 +24,7 @@ const withReducer = (
     constructor(props, context) {
       super(props, context)
 
-      this.mapToProps = options.mapToProps || identity
+      this.mapToProps = options.mapToProps || merge
       this.reducer = createReducer(props, context)
       this.state = this.reducer(undefined, initAction)
       this.actionCreators = bindActionCreators(
@@ -75,10 +75,7 @@ const withReducer = (
     render() {
       return React.createElement(WrappedComponent, {
         ...this.props,
-        ...(this.mapToProps({
-          ...this.state,
-          ...this.actionCreators,
-        }))
+        ...this.mapToProps(this.state, this.actionCreators)
       })
     }
   }
