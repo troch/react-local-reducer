@@ -1,6 +1,6 @@
 {
   "name": "react-local-reducer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Use reducers locally in your React app, works with Redux",
   "main": "index.js",
   "module": "index.es.js",

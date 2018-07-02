@@ -1,15 +1,16 @@
-<a name="2.0.0"></a>
-# [2.0.0](https://github.com/troch/react-local-reducer/compare/v1.0.4...v2.0.0) (2018-07-02)
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/troch/react-local-reducer/compare/v1.0.4...v2.0.1) (2018-07-02)
+
+
+### Bug Fixes
+
+* fix peer dependency requirements ([7cbb9bc](https://github.com/troch/react-local-reducer/commit/7cbb9bc))
 
 
 ### Features
 
-* Make 3rd argument of `withReducer` a `mergeProps` function ([7e807d1](https://github.com/troch/react-local-reducer/commit/7e807d1))
+* map to props as a function ([b4fe4e8](https://github.com/troch/react-local-reducer/commit/b4fe4e8))
 
-
-### BREAKING CHANGES
-
-* Undocumented options as 3rd argument of `withReducer` have been removed.
 
 
 <a name="1.0.4"></a>
