@@ -9,22 +9,18 @@ const initAction = {
   type: '@@localReducer/INIT'
 }
 
-const defaultOptions = {
-  listenToStoreActions: true
-}
-
-const merge = (...args) => Object.assign({}, ...args)
+const defaultMergeProps = (...args) => Object.assign({}, ...args)
 
 const withReducer = (
   createReducer,
   mapDispatchToProps,
-  options = {}
+  mergeProps
 ) => WrappedComponent => {
   class WithReducer extends PureComponent {
     constructor(props, context) {
       super(props, context)
 
-      this.mapToProps = options.mapToProps || merge
+      this.mapToProps = mergeProps || defaultMergeProps
       this.reducer = createReducer(props, context)
       this.state = this.reducer(undefined, initAction)
       this.actionCreators = bindActionCreators(
@@ -34,12 +30,9 @@ const withReducer = (
       )
 
       const { store } = context
-      const finalOptions = { ...defaultOptions, ...options }
 
       if (store && store.onDispatch) {
-        if (finalOptions.listenToStoreActions) {
-          this.unsubscribe = store.onDispatch(this.dispatchAction)
-        }
+        this.unsubscribe = store.onDispatch(this.dispatchAction)
       }
     }
 
