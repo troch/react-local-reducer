@@ -4,18 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _Object$assign = _interopDefault(require('babel-runtime/core-js/object/assign'));
-var _Object$getPrototypeOf = _interopDefault(require('babel-runtime/core-js/object/get-prototype-of'));
-var _classCallCheck = _interopDefault(require('babel-runtime/helpers/classCallCheck'));
-var _createClass = _interopDefault(require('babel-runtime/helpers/createClass'));
-var _possibleConstructorReturn = _interopDefault(require('babel-runtime/helpers/possibleConstructorReturn'));
-var _inherits = _interopDefault(require('babel-runtime/helpers/inherits'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
-var _Object$keys = _interopDefault(require('babel-runtime/core-js/object/keys'));
-var _typeof = _interopDefault(require('babel-runtime/helpers/typeof'));
-var _defineProperty = _interopDefault(require('babel-runtime/helpers/defineProperty'));
 
 function onDispatchStoreEnhancer(createStore) {
   return function (reducer, initialState, enhancer) {
@@ -48,12 +39,81 @@ function onDispatchStoreEnhancer(createStore) {
   };
 }
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var inherits = function (subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+var possibleConstructorReturn = function (self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
 var isObject = function isObject(value) {
   return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && !Array.isArray(value);
 };
 
 var keysAreEqual = function keysAreEqual(left, right) {
-  return _Object$keys(left).length === _Object$keys(right).length && _Object$keys(left).every(function (leftKey) {
+  return Object.keys(left).length === Object.keys(right).length && Object.keys(left).every(function (leftKey) {
     return left[leftKey] === right[leftKey];
   });
 };
@@ -63,8 +123,8 @@ var shallowEquals = function shallowEquals(left, right) {
 };
 
 var bindActionCreatorsObject = function bindActionCreatorsObject(mapDispatchToProps, dispatchAction) {
-  return _Object$keys(mapDispatchToProps).reduce(function (actionCreators, actionName) {
-    return _Object$assign({}, actionCreators, _defineProperty({}, actionName, function () {
+  return Object.keys(mapDispatchToProps).reduce(function (actionCreators, actionName) {
+    return Object.assign({}, actionCreators, defineProperty({}, actionName, function () {
       var actionCreator = mapDispatchToProps[actionName];
       var action = actionCreator.apply(undefined, arguments);
 
@@ -99,19 +159,23 @@ var initAction = {
   type: '@@localReducer/INIT'
 };
 
-var defaultOptions = {
-  listenToStoreActions: true
+var defaultMergeProps = function defaultMergeProps() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return Object.assign.apply(Object, [{}].concat(args));
 };
 
-var withReducer = function withReducer(createReducer, mapDispatchToProps, options) {
+var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeProps) {
   return function (WrappedComponent) {
     var WithReducer = function (_PureComponent) {
-      _inherits(WithReducer, _PureComponent);
+      inherits(WithReducer, _PureComponent);
 
       function WithReducer(props, context) {
-        _classCallCheck(this, WithReducer);
+        classCallCheck(this, WithReducer);
 
-        var _this = _possibleConstructorReturn(this, (WithReducer.__proto__ || _Object$getPrototypeOf(WithReducer)).call(this, props, context));
+        var _this = possibleConstructorReturn(this, (WithReducer.__proto__ || Object.getPrototypeOf(WithReducer)).call(this, props, context));
 
         _this.dispatchAction = function (action) {
           if (!isObject(action) || !action.type) {
@@ -130,23 +194,21 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, option
           }
         };
 
+        _this.mergeProps = mergeProps || defaultMergeProps;
         _this.reducer = createReducer(props, context);
         _this.state = _this.reducer(undefined, initAction);
         _this.actionCreators = bindActionCreators(mapDispatchToProps, _this.dispatchAction, _this.props);
 
         var store = context.store;
 
-        var finalOptions = _Object$assign({}, defaultOptions, options);
 
         if (store && store.onDispatch) {
-          if (finalOptions.listenToStoreActions) {
-            _this.unsubscribe = store.onDispatch(_this.dispatchAction);
-          }
+          _this.unsubscribe = store.onDispatch(_this.dispatchAction);
         }
         return _this;
       }
 
-      _createClass(WithReducer, [{
+      createClass(WithReducer, [{
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
           if (this.unsubscribe) {
@@ -156,14 +218,13 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, option
       }, {
         key: 'render',
         value: function render() {
-          return React__default.createElement(WrappedComponent, _Object$assign({}, this.props, this.state, this.actionCreators));
+          return React__default.createElement(WrappedComponent, this.mergeProps(this.props, this.state, this.actionCreators));
         }
       }]);
-
       return WithReducer;
     }(React.PureComponent);
 
-    WithReducer.contextTypes = _Object$assign({
+    WithReducer.contextTypes = Object.assign({
       store: PropTypes.object
     }, getContextTypes());
 

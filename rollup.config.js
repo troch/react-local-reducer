@@ -7,7 +7,7 @@ const babelConfig = {
   plugins: [
     ['transform-object-rest-spread', { useBuiltIns: true }],
     'transform-class-properties',
-    ['transform-runtime', { regenerator: false }]
+    'external-helpers'
   ],
   runtimeHelpers: true,
   babelrc: false
@@ -16,7 +16,7 @@ const babelConfig = {
 export default {
   input: 'src/index.js',
   plugins: [babel(babelConfig)],
-  external: ['react', 'prop-types', 'babel-runtime'],
+  external: ['react', 'prop-types'],
   output: [
     {
       file: pkg.main,
