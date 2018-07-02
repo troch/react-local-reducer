@@ -36,7 +36,7 @@ Not everything needs to be in a global store, especially state which is __not sh
 - Reducers are created using `props` and `context` so they can be initialised, and they __must return an object__
 - Reducers __can receive actions from your main store__, with the help of a store enhancer provided with this package
 
-#### __withReducer(reducerCreator, mapDispatchToProps, options?)(BaseComponent)__
+#### __withReducer(reducerCreator, mapDispatchToProps, mergeProps?)(BaseComponent)__
 
 `withReducer` is a higher-order component which adds a reducer to a component. Its API is similar to `connect`, with `mapStateToProps` being replaced by a reducer. By default, it will spread the output of its reducer to props, alongside action creators bound to your Redux store. Selectors are not necessary.
 
@@ -91,33 +91,23 @@ The above created component would be used as follow:
 
 One benefit of this approach is that you can have as many counters as you want, without adding complexity to your store.
 
-#### __options__
 
-A third argument can be passed to `withReducer`, which is expected to be a configuration object. This object currently supports two options:
+###### __mergeProps__
 
-###### __mapToProps__
+You can customise how `props`, `state` and `actionCreators` are passed through to your base component by adding a `mergeProps` function.
 
-You can customise how the `state` and `actionCreators` are passed through to your base component by adding a `mapToProps` function.
-
-This function has the signature `(state, actionCreators) => ({ ...props })`, and the object it returns is spread to the base component as props.
+This function has the signature `(props, state, actionCreators) => ({ /* ... */ })`, and the returned object will be passed to the base component as props.
 
 For example, if you wish to pass your `state` as a single object:
 
-`(state, actionCreators) => ({ state, ...actionCreators })`
+`(props, state, actionCreators) => ({ ...props, state, ...actionCreators })`
 
 Or if you wish for the separate props to be available in addition to being combined as a single object:
 
-`(state, actionCreators) => ({ state, ...state, ...actionCreators })`
+`(props, state, actionCreators) => ({ ...props, state, ...state, ...actionCreators })`
 
-By default, both `state` and `actionCreators` are simply spread into this object.
+By default, `props`, `state` and `actionCreators` are simply merged together.
 
-###### __listenToStoreActions__
-
-You can choose whether your reducer will receive actions which have been dispatched to redux via the `listenToStoreActions` option.
-
-By default this option is `true`, which means any actions dispatched to your main Redux store will also be passed to your local reducer.
-
-If you set this option to `false`, the actions sent to the main store will not be passed to your local reducer.
 
 #### __setContextTypes__
 

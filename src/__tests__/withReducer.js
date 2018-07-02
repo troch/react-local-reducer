@@ -34,8 +34,12 @@ describe('withReducer', () => {
     expect(output.text()).toBe('1')
   })
 
-  it('should use a mapToProps function when provided', () => {
-    const Component = createComponent(state => ({ state, ...state }))
+  it('should use a mergeProps function when provided', () => {
+    const Component = createComponent((props, state) => ({
+      ...props,
+      state,
+      ...state
+    }))
     const component = shallow(<Component />)
     const output = component.dive()
 

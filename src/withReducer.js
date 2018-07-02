@@ -20,7 +20,7 @@ const withReducer = (
     constructor(props, context) {
       super(props, context)
 
-      this.mapToProps = mergeProps || defaultMergeProps
+      this.mergeProps = mergeProps || defaultMergeProps
       this.reducer = createReducer(props, context)
       this.state = this.reducer(undefined, initAction)
       this.actionCreators = bindActionCreators(
@@ -66,10 +66,10 @@ const withReducer = (
     }
 
     render() {
-      return React.createElement(WrappedComponent, {
-        ...this.props,
-        ...this.mapToProps(this.state, this.actionCreators)
-      })
+      return React.createElement(
+        WrappedComponent,
+        this.mergeProps(this.props, this.state, this.actionCreators)
+      )
     }
   }
 
