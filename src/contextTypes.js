@@ -1,5 +1,5 @@
-let contextTypes = {}
+let contextType = {}
 
-export const getContextTypes = () => contextTypes
+export const getContextType = () => contextType
 
-export const setContextTypes = types => (contextTypes = types)
+export const setContextType = type => (contextType = type)
