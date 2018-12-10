@@ -1,6 +1,6 @@
 {
   "name": "react-local-reducer",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Use reducers locally in your React app, works with Redux",
   "main": "index.js",
   "module": "index.es.js",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "jest",
-    "clog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "clog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "lint-staged": {
     "src/**/*.js": [

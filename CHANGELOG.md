@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/troch/react-local-reducer/compare/v3.0.1...v3.1.0) (2018-12-10)
+
+
+### Features
+
+* allow contextType to be passed in withReducer ([ac80d27](https://github.com/troch/react-local-reducer/commit/ac80d27))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/troch/react-local-reducer/compare/v3.0.0...v3.0.1) (2018-12-10)
 
