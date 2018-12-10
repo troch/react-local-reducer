@@ -191,8 +191,8 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeP
         _this.state = _this.reducer(undefined, initAction);
         _this.actionCreators = bindActionCreators(mapDispatchToProps, _this.dispatchAction, _this.props);
 
-        var store = context.store;
-
+        var _ref = context || {},
+            store = _ref.store;
 
         if (store && store.onDispatch) {
           _this.unsubscribe = store.onDispatch(_this.dispatchAction);

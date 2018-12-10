@@ -28,7 +28,7 @@ const withReducer = (
         this.props
       )
 
-      const { store } = context
+      const { store } = context || {}
 
       if (store && store.onDispatch) {
         this.unsubscribe = store.onDispatch(this.dispatchAction)
