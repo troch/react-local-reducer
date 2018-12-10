@@ -8,7 +8,6 @@
   "author": "Thomas Roch <thomas.c.roch@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "precommit": "lint-staged",
     "build": "rollup -c rollup.config.js",
     "test": "jest",
     "clog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
@@ -27,18 +26,18 @@
     "babel-plugin-transform-runtime": "~6.23.0",
     "babel-preset-env": "~1.7.0",
     "babel-preset-react": "~6.24.1",
-    "conventional-changelog-cli": "~2.0.1",
-    "enzyme": "~3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "conventional-changelog-cli": "~2.0.11",
+    "enzyme": "~3.8.0",
+    "enzyme-adapter-react-16": "~1.7.1",
     "husky": "~1.2.0",
-    "jest": "~23.2.0",
-    "lint-staged": "~7.2.0",
-    "prettier": "~1.13.7",
+    "jest": "~23.6.0",
+    "lint-staged": "~8.1.0",
+    "prettier": "~1.15.3",
     "react": "~16.6.3",
     "react-dom": "~16.6.3",
     "react-test-renderer": "~16.6.3",
-    "redux": "~4.0.0",
-    "rollup": "~0.62.0",
+    "redux": "~4.0.1",
+    "rollup": "~0.67.4",
     "rollup-plugin-babel": "~3.0.7"
   },
   "peerDependencies": {
@@ -48,5 +47,10 @@
     "setupFiles": [
       "<rootDir>/test.config.js"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
