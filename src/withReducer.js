@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 import { shallowEquals, isObject } from './utils/helpers'
 import bindActionCreators from './utils/bindActionCreators'
-import { getContextType } from './contextTypes'
+import { getContextType } from './contextType'
 
 const initAction = {
   type: '@@localReducer/INIT'
