@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 import { shallowEquals, isObject } from './utils/helpers'
 import bindActionCreators from './utils/bindActionCreators'
-import { getContextTypes } from './contextTypes'
+import { getContextType } from './contextTypes'
 
 const initAction = {
   type: '@@localReducer/INIT'
@@ -73,10 +72,7 @@ const withReducer = (
     }
   }
 
-  WithReducer.contextTypes = {
-    store: PropTypes.object,
-    ...getContextTypes()
-  }
+  WithReducer.contextType = getContextType()
 
   return WithReducer
 }
