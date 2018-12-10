@@ -166,7 +166,7 @@ var defaultMergeProps = function defaultMergeProps() {
   return Object.assign.apply(Object, [{}].concat(args));
 };
 
-var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeProps) {
+var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeProps, contextType) {
   return function (WrappedComponent) {
     var WithReducer = function (_PureComponent) {
       inherits(WithReducer, _PureComponent);
@@ -223,7 +223,11 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeP
       return WithReducer;
     }(React.PureComponent);
 
-    WithReducer.contextType = getContextType();
+    var finalContextType = contextType || getContextType();
+
+    if (finalContextType) {
+      WithReducer.contextType = finalContextType;
+    }
 
     return WithReducer;
   };

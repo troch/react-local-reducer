@@ -38,7 +38,7 @@ Not everything needs to be in a global store, especially state which is __not sh
 - Reducers are created using `props` and `context` so they can be initialised, and they __must return an object__
 - Reducers __can receive actions from your main store__, with the help of a store enhancer provided with this package
 
-#### __withReducer(reducerCreator, mapDispatchToProps, mergeProps?)(BaseComponent)__
+#### __withReducer(reducerCreator, mapDispatchToProps, mergeProps?, contextType?)(BaseComponent)__
 
 `withReducer` is a higher-order component which adds a reducer to a component. Its API is similar to `connect`, with `mapStateToProps` being replaced by a reducer. By default, it will spread the output of its reducer to props, alongside action creators bound to your Redux store. Selectors are not necessary.
 
@@ -113,7 +113,7 @@ By default, `props`, `state` and `actionCreators` are simply merged together.
 
 #### __setContextType__
 
-You can pass your `store` and other dependencies using `setContextType(context: ReactContext)`.
+You can pass your `store` and other dependencies using `setContextType(context: ReactContext)` or the last argument of `withReducer`.
 
 ```js
 import { setContextType } from 'react-local-reducer'

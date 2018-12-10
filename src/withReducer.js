@@ -13,7 +13,8 @@ const defaultMergeProps = (...args) => Object.assign({}, ...args)
 const withReducer = (
   createReducer,
   mapDispatchToProps,
-  mergeProps
+  mergeProps,
+  contextType
 ) => WrappedComponent => {
   class WithReducer extends PureComponent {
     constructor(props, context) {
@@ -72,7 +73,11 @@ const withReducer = (
     }
   }
 
-  WithReducer.contextType = getContextType()
+  const finalContextType = contextType || getContextType()
+
+  if (finalContextType) {
+    WithReducer.contextType = finalContextType
+  }
 
   return WithReducer
 }
