@@ -12,6 +12,8 @@ npm install --save react-local-reducer
 yarn add react-local-reducer
 ```
 
+For using hooks, see [react-hooked-reducer](troch/react-hooked-reducer).
+
 ## Why?
 
 As you scale your Redux application, your store will grow. Over time, as you add more and more reducers to the store, performance will decrease and bundle size will increase.

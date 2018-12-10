@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 function onDispatchStoreEnhancer(createStore) {
   return function (reducer, initialState, enhancer) {
@@ -138,14 +137,14 @@ var bindActionCreators = function bindActionCreators(mapDispatchToProps, dispatc
   return {};
 };
 
-var contextTypes = {};
+var contextType = {};
 
-var getContextTypes = function getContextTypes() {
-  return contextTypes;
+var getContextType = function getContextType() {
+  return contextType;
 };
 
-var setContextTypes = function setContextTypes(types) {
-  return contextTypes = types;
+var setContextType = function setContextType(type) {
+  return contextType = type;
 };
 
 var initAction = {
@@ -217,12 +216,10 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeP
       return WithReducer;
     }(PureComponent);
 
-    WithReducer.contextTypes = Object.assign({
-      store: PropTypes.object
-    }, getContextTypes());
+    WithReducer.contextType = getContextType();
 
     return WithReducer;
   };
 };
 
-export { withReducer, onDispatchStoreEnhancer, setContextTypes };
+export { withReducer, onDispatchStoreEnhancer, setContextType };

@@ -6,7 +6,6 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-var PropTypes = _interopDefault(require('prop-types'));
 
 function onDispatchStoreEnhancer(createStore) {
   return function (reducer, initialState, enhancer) {
@@ -145,14 +144,14 @@ var bindActionCreators = function bindActionCreators(mapDispatchToProps, dispatc
   return {};
 };
 
-var contextTypes = {};
+var contextType = {};
 
-var getContextTypes = function getContextTypes() {
-  return contextTypes;
+var getContextType = function getContextType() {
+  return contextType;
 };
 
-var setContextTypes = function setContextTypes(types) {
-  return contextTypes = types;
+var setContextType = function setContextType(type) {
+  return contextType = type;
 };
 
 var initAction = {
@@ -224,9 +223,7 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeP
       return WithReducer;
     }(React.PureComponent);
 
-    WithReducer.contextTypes = Object.assign({
-      store: PropTypes.object
-    }, getContextTypes());
+    WithReducer.contextType = getContextType();
 
     return WithReducer;
   };
@@ -234,4 +231,4 @@ var withReducer = function withReducer(createReducer, mapDispatchToProps, mergeP
 
 exports.withReducer = withReducer;
 exports.onDispatchStoreEnhancer = onDispatchStoreEnhancer;
-exports.setContextTypes = setContextTypes;
+exports.setContextType = setContextType;
