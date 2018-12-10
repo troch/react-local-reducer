@@ -109,24 +109,22 @@ Or if you wish for the separate props to be available in addition to being combi
 By default, `props`, `state` and `actionCreators` are simply merged together.
 
 
-#### __setContextTypes__
+#### __setContextType__
 
-When using `withReducer`, you need to define a reducer creator (factory).
+You can pass your `store` and other dependencies using `setContextType(context: ReactContext)`.
+
+```js
+import { setContextType } from 'react-local-reducer'
+
+setContextType(DependencyContext)
+```
+
+Don't forget to set its value with a its provider. When using `withReducer`, you need to define a reducer creator (factory).
 
 ```js
 const reducerCreator = (props, context) => { /* return reducer */ }
 ```
 
-`context` will contain your `store` (if you have one in context), and to add anything to it you can use `setContextTypes`:
-
-```js
-import PropTypes from 'prop-types'
-import { setContextTypes } from 'react-local-reducer'
-
-setContextTypes({
-  storage: PropTypes.object.isRequired
-})
-```
 
 #### __onDispatchStoreEnhancer__
 

@@ -1,3 +1,19 @@
+<a name="3.0.0"></a>
+## [3.0.0](https://github.com/troch/react-local-reducer/compare/v2.0.1...v3.0.0) (2018-12-10)
+
+**BREAKING CHANGES**
+
+In order to support the new version of `react-redux` (v6), the following breaking changes have been introduced
+
+- This packages now requires React 16.6.0 and above
+- `setContextTypes` has been renamed to `setContextType` and requires a React context. If you want your local reducers to be hooked to your store, the provided context should be an object containing a `store` property. You can pass alongside it any other dependency, which will be passed to your reducer factories.
+
+
+### Bug Fixes
+
+* fix peer dependency requirements ([7cbb9bc](https://github.com/troch/react-local-reducer/commit/7cbb9bc))
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/troch/react-local-reducer/compare/v1.0.4...v2.0.1) (2018-07-02)
 
